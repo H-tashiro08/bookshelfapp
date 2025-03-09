@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Shelf, Review
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg
@@ -47,14 +47,14 @@ class CreateBookView(LoginRequiredMixin,generic.CreateView):
     fields = ('title', 'text', 'category', 'thumbnail')
     success_url = reverse_lazy('list-book')
 
-def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.user = self.request.user  # ログイン中のユーザーを設定
         return super().form_valid(form)
-
+        
 class DeleteBookView(LoginRequiredMixin,generic.DeleteView):
     template_name = 'book/book_confirm_delete.html'
     model = Shelf
-    context_object_name = 'Shelf'
+    context_object_name = 'Shelf' 
     success_url = reverse_lazy('list-book')
 
     def dispatch(self, request, *args, **kwargs):
