@@ -6,6 +6,8 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg
 from django.core.paginator import Paginator
+from django.urls import reverse
+from django.views.generic import UpdateView
 
 
 
